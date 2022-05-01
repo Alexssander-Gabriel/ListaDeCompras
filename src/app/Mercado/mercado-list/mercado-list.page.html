@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button fill="clear" slots="icon-only" color="secondary">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-button>
+      <ion-icon class="ion-text-center" name="storefront-outline"></ion-icon>
+      <ion-text class="ion-text-center"><strong>Lista de Mercados</strong></ion-text> 
+      <ion-spinner *ngIf="loading"></ion-spinner>
+      <div>
+        <ion-searchbar  placeholder="Pesquisar" 
+        [(ngModel)]="consulta"
+        showCancelButton="focus"
+        animated></ion-searchbar>
+      </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-sliding *ngFor="let mercado of mercados | filter:consulta">
+    <ion-item-options side="start">
+      <ion-item-option color="secondary" [routerLink]="['/mercado-register', mercado.id]">
+        <ion-icon name="pencil" slot="icon-only"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+
+    <ion-item-options side="end">
+      <ion-item-option color="danger" (click)="excluir(mercado)">
+        <ion-icon name="trash" slot="icon-only"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+    
+    <ion-item lines="inset">
+      <ion-avatar slot="start">
+        <img [src]="mercado.foto" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{mercado.nome}}</h2>
+        <h3>{{mercado.atendimento}}</h3>
+        <small>{{mercado.contato}}</small>
+      </ion-label>
+      <small>
+        <ion-text>{{mercado.endereco}}</ion-text>
+      </small>
+    </ion-item>
+
+
+
+  </ion-item-sliding>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button routerLink='/mercado-register'>Adicionar<ion-icon name="add"></ion-icon></ion-button>
+</ion-footer>

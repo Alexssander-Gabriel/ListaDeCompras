@@ -1,0 +1,162 @@
+{
+  "produtos": [
+    {
+      "id": 2,
+      "descricao": "Tomate",
+      "categoria": "Frutas e Legumes",
+      "preco": 8.9,
+      "foto": "https://www.drogariaminasbrasil.com.br/media/product/075/extrato-de-tomate-concentrado-sache-fugini-340g-48a.jpg",
+      "unidade": "Kilograma"
+    },
+    {
+      "id": 3,
+      "descricao": "Arroz Branco",
+      "categoria": "Alimentos",
+      "preco": 5.9,
+      "foto": "https://statics.angeloni.com.br/super/files/produtos/2132168/2132168_1_zoom.jpg",
+      "unidade": "Kilograma"
+    },
+    {
+      "id": 4,
+      "descricao": "Mais um alimentinho",
+      "categoria": "Alimentos",
+      "preco": 10,
+      "unidade": "Unidade",
+      "foto": "s"
+    }
+  ],
+  "mercados": [
+    {
+      "id": 1,
+      "nome": "Pellegrim2",
+      "endereco": "Morro da fumaça",
+      "contato": "99999-7070",
+      "atendimento": "Finais de Semana e Feriados",
+      "foto": "https://bpm.com.br/wp-content/uploads/2017/10/imagemobra_640x480-2-9.jpg"
+    },
+    {
+      "id": 3,
+      "nome": "Mercado Polla",
+      "endereco": "Morro da fumaça",
+      "contato": "99821-8564",
+      "foto": "https://lh5.googleusercontent.com/p/AF1QipMKfeiYA7l3CzZO-IE8dpF8lT6d5Ho9qC_M04Oy=w1080-k-no",
+      "atendimento": "Finais de Semana"
+    },
+    {
+      "id": 5,
+      "nome": "Angeloni",
+      "endereco": "Criciuma",
+      "contato": "98549-7070",
+      "foto": "https://fastly.4sqi.net/img/general/600x600/IyL_6EZexN8TIeZl5yejpQC5LH_ohr7W81YVlK3x4MQ.jpg",
+      "atendimento": "Finais de Semana e Feriados"
+    },
+    {
+      "id": 6,
+      "nome": "Novo mercado",
+      "endereco": "Santa Barbara",
+      "contato": "70707070",
+      "atendimento": "Finais de Semana",
+      "foto": "https://www.giassi.com.br/slir/w366-h320-c366x320/upload/loja_image/38.jpg"
+    }
+  ],
+  "listaCompras": [
+    {
+      "id": 1,
+      "descricao": "Primeira Lista",
+      "produtos": [
+        {
+          "id": 2,
+          "descricao": "Tomate",
+          "categoria": "Frutas e Legumes",
+          "preco": 8.9,
+          "foto": "https://www.drogariaminasbrasil.com.br/media/product/075/extrato-de-tomate-concentrado-sache-fugini-340g-48a.jpg",
+          "unidade": "Kilograma"
+        },
+        {
+          "id": 3,
+          "descricao": "Arroz Branco",
+          "categoria": "Alimentos",
+          "preco": 5.9,
+          "foto": "https://statics.angeloni.com.br/super/files/produtos/2132168/2132168_1_zoom.jpg",
+          "unidade": "Kilograma"
+        }
+      ],
+      "mercado": [
+        {
+          "id": 1,
+          "nome": "Pellegrim2",
+          "endereco": "Morro da fumaça",
+          "contato": "99999-7070",
+          "atendimento": "Finais de Semana e Feriados",
+          "foto": "https://bpm.com.br/wp-content/uploads/2017/10/imagemobra_640x480-2-9.jpg"
+        }
+      ],
+      "categoria": "compras Básicas"
+    },
+    {
+      "id": 2,
+      "descricao": "Segunda Lista",
+      "produtos": [
+        {
+          "id": 2,
+          "descricao": "Tomate",
+          "categoria": "Frutas e Legumes",
+          "preco": 8.9,
+          "foto": "https://www.drogariaminasbrasil.com.br/media/product/075/extrato-de-tomate-concentrado-sache-fugini-340g-48a.jpg",
+          "unidade": "Kilograma"
+        },
+        {
+          "id": 3,
+          "descricao": "Arroz Branco",
+          "categoria": "Alimentos",
+          "preco": 5.9,
+          "foto": "https://statics.angeloni.com.br/super/files/produtos/2132168/2132168_1_zoom.jpg",
+          "unidade": "Kilograma"
+        },
+        {
+          "id": 4,
+          "descricao": "Mais um alimentinho",
+          "categoria": "Alimentos",
+          "preco": 10,
+          "unidade": "Unidade",
+          "foto": "s"
+        }
+      ],
+      "mercado": [
+        {
+          "id": 3,
+          "nome": "Mercado Polla",
+          "endereco": "Morro da fumaça",
+          "contato": "99821-8564",
+          "foto": "https://lh5.googleusercontent.com/p/AF1QipMKfeiYA7l3CzZO-IE8dpF8lT6d5Ho9qC_M04Oy=w1080-k-no",
+          "atendimento": "Finais de Semana"
+        }
+      ],
+      "categoria": "Receitas"
+    },
+    {
+      "id": 3,
+      "descricao": "alguma coisa ",
+      "produtos": [],
+      "mercado": [
+        {
+          "id": 1,
+          "nome": "Pellegrim2",
+          "endereco": "Morro da fumaça",
+          "contato": "99999-7070",
+          "atendimento": "Finais de Semana e Feriados",
+          "foto": "https://bpm.com.br/wp-content/uploads/2017/10/imagemobra_640x480-2-9.jpg"
+        },
+        {
+          "id": 3,
+          "nome": "Mercado Polla",
+          "endereco": "Morro da fumaça",
+          "contato": "99821-8564",
+          "foto": "https://lh5.googleusercontent.com/p/AF1QipMKfeiYA7l3CzZO-IE8dpF8lT6d5Ho9qC_M04Oy=w1080-k-no",
+          "atendimento": "Finais de Semana"
+        }
+      ],
+      "categoria": "Receitas"
+    }
+  ]
+}

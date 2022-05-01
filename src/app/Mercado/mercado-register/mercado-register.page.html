@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button routerLink="/mercado-list" fill="clear" slots="icon-only" color="light">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button> 
+    <ion-text>Cadastro de Mercado</ion-text>
+    <ion-spinner *ngIf="loading"></ion-spinner>
+  </ion-toolbar>
+</ion-header >
+
+<ion-content [formGroup]="form">
+  <div *ngIf="!loading">
+    <ion-item>
+      <ion-label position="stacked">Nome: </ion-label>
+      <ion-input type="text" formControlName="nome"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Endereco: </ion-label>
+      <ion-input type="text" formControlName="endereco"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Contato: </ion-label>
+      <ion-input type="text" formControlName="contato"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Atendimento: </ion-label>
+      <ion-select formControlName="atendimento">
+        <ion-select-option value="Finais de Semana">Finais de Semana</ion-select-option>
+        <ion-select-option value="Finais de Semana e Feriados">Finais de Semana e FeriadosPS</ion-select-option>
+        <ion-select-option value="Segunda a Sexta">Esportes</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Foto (URL): </ion-label>
+      <ion-input type="text" formControlName="foto"></ion-input>
+    </ion-item>
+</div>
+</ion-content>
+
+<ion-footer>
+  <ion-button routerLink='/mercado-list'>
+    <ion-text>Cancelar</ion-text>
+  </ion-button>
+  <ion-button (click)="salvar()" [disabled]="!form.valid">
+    <ion-text>Adicionar</ion-text>
+    <ion-icon name="checkmark-outline"></ion-icon>
+  </ion-button>
+</ion-footer>

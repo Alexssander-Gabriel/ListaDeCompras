@@ -1,0 +1,52 @@
+<ion-app>
+  <ion-menu s ide="start" menuId="main-menu" contentId="main">
+    <ion-header class="ion-text-center">
+      <ion-toolbar color="primary">
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    
+    <ion-content>
+       <ion-list>
+        <ion-menu-toggle>
+          <ion-item routerLink="/home">
+            <ion-icon name="home-outline" ></ion-icon>
+            <ion-text>Principal</ion-text>
+          </ion-item>
+         </ion-menu-toggle>    
+
+        <ion-menu-toggle>
+         <ion-item routerLink="/produto-list">
+           <ion-icon name="basket-outline" ></ion-icon>
+           <ion-text>Produtos</ion-text>
+         </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
+          <ion-item routerLink="/lista-list">
+            <ion-icon name="clipboard-outline" ></ion-icon>
+            <ion-text>Lista de Compra</ion-text>
+          </ion-item>
+         </ion-menu-toggle>
+
+         <ion-menu-toggle>
+          <ion-item routerLink="/mercado-list">
+            <ion-icon name="storefront-outline" ></ion-icon>
+            <ion-text>Mercados</ion-text>
+          </ion-item>
+         </ion-menu-toggle>
+
+         <ion-menu-toggle>
+          <ion-item routerLink="/dashboard">
+            <ion-icon name="bar-chart-outline" ></ion-icon>
+            <ion-text>DashBoard</ion-text>
+          </ion-item>
+         </ion-menu-toggle>
+
+      </ion-list>
+    </ion-content>
+
+  </ion-menu>
+ 
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

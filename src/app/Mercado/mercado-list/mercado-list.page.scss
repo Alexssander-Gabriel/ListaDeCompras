@@ -1,0 +1,22 @@
+ion-toolbar{
+    ion-icon{
+        font-size: 30px;
+    }
+    ion-text{
+        font-size: 30px;
+    }
+}
+
+ion-footer{
+    min-height: 50px;
+    ion-button{
+        height: 100%;
+        width: 100%;
+        padding: auto;
+    }
+}
+
+ion-item{
+    --border-color: black;
+
+}

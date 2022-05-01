@@ -1,0 +1,23 @@
+ion-header{
+    ion-icon{
+        font-size: 30px;
+    }
+    ion-text{
+        font-size: 30px;
+    }
+}
+
+ion-footer{
+    min-height: 40px;
+    ion-button{
+        height: 100%;
+        width: 48%;
+        padding: auto;
+    }
+}
+
+.foto{
+    border: 1px solid black;
+    max-height: 100px;
+
+}

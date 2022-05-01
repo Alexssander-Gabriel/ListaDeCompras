@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button routerLink="/lista-list" fill="clear" slots="icon-only" color="light">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button> 
+    <ion-text>Cadastro de Lista</ion-text>
+    <ion-spinner *ngIf="loading"></ion-spinner>
+  </ion-toolbar>
+</ion-header >
+
+
+<ion-content [formGroup]="form">
+  <div *ngIf="!loading">
+      <ion-item>
+        <ion-label >Descrição: </ion-label>
+        <ion-input type="text" formControlName="descricao"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Categoria:</ion-label>
+        <ion-select  formControlName="categoria">
+          <ion-select-option value="Rancho">Rancho</ion-select-option>
+          <ion-select-option value="Receitas">Receitas</ion-select-option>
+          <ion-select-option value="Compras Básicas">Compras Básicas</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Mercados:</ion-label>
+          <ion-select formControlName="mercado" multiple="true" cancelText="Cancelar" [compareWith]="compareWithMercado">
+            <ion-select-option *ngFor="let mercado of mercados" [value]="mercado">
+              {{ mercado.nome }}
+            </ion-select-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Produtos:</ion-label>
+          <ion-select formControlName="produtos" multiple="true" cancelText="Cancelar" [compareWith]="compareWithProduto">
+            <ion-select-option *ngFor="let produto of produtos" [value]="produto">
+              {{ produto.descricao }}
+            </ion-select-option>
+          </ion-select>
+      </ion-item>
+
+      <!--
+      <ion-list>
+        <ion-item *ngFor="let produto of Produtos">
+          <ion-label>produto.nome </ion-label>
+        </ion-item>
+      </ion-list>
+      -->
+
+          
+  </div>
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-button routerLink='/lista-list'>
+    <ion-text>Cancelar</ion-text>
+  </ion-button>
+  <ion-button (click)="salvar()" [disabled]="!form.valid">
+    <ion-text>Gravar Lista</ion-text>
+    <ion-icon name="checkmark-outline"></ion-icon>
+  </ion-button>
+</ion-footer>
