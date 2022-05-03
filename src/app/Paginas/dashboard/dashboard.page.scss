@@ -1,0 +1,23 @@
+
+ion-content{
+    display: flex;
+}
+ion-card{
+    flex: 1;
+    display: flex;
+    background-color: #2596be;
+    color: #FFFFFF;
+    ion-item{
+        flex: 1;
+        background-color: #2596be;
+        font-size: 10px;
+        h1, h2{
+            font-size: 0.6rem;
+        }
+    }
+}
+
+canvas {
+    flex: 1;
+}
+

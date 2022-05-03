@@ -34,7 +34,6 @@ ion-fab-button{
     &.focus{
         outline: none;
     }
-
 }
 
 ion-list-header{
@@ -42,7 +41,7 @@ ion-list-header{
     --color : var(--ion-color-primary-contrast);
 }
 
-ion-header{
+ion-header{      
     ion-toolbar{
         ion-icon{
             font-size: 25px;
@@ -51,11 +50,18 @@ ion-header{
             font-size: 25px;
         }
     }
+
+    .menu{
+        color: black;
+        --background-activated-opacity: 100%;
+        --background-hover-opacity: 100%;
+      }
 }
 
 ion-spinner{
     margin-left: 0.7rem;
   }
+
 
 
 

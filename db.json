@@ -23,6 +23,14 @@
       "preco": 10,
       "unidade": "Unidade",
       "foto": "s"
+    },
+    {
+      "id": 5,
+      "descricao": "Produto outra categoria",
+      "categoria": "Higiene",
+      "preco": 5,
+      "unidade": "Unidade",
+      "foto": "dfdf"
     }
   ],
   "mercados": [
