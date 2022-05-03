@@ -1,15 +1,11 @@
 import { Component, OnInit, OnDestroy, Renderer2, ViewChild } from '@angular/core';
-import { Categoria, Lista, Mercado, Produto, Tipo } from 'src/app/app.module';
-import { ListaService } from 'src/app/lista.service';
-import {
-  ViewDidEnter,
-  ViewDidLeave,
-  ViewWillEnter,
-  ViewWillLeave,
-} from '@ionic/angular';
+import { Categoria, Tipo } from 'src/app/model/enums';
+import { Mercado } from 'src/app/model/mercado.model';
+import { Produto } from 'src/app/model/produto.model';
+import { Lista } from 'src/app/model/lista.model';
 import { finalize } from 'rxjs/operators';
 import { ListaApiService } from 'src/app/ServicesAPI/Lista/lista-api.service';
-import { MessageService } from 'src/app/services/message.service';
+import { MessageService } from 'src/app/services/Mensagem/message.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MercadoApiServiceService } from 'src/app/ServicesAPI/Mercado/mercado-api-service.service';
@@ -20,13 +16,7 @@ import { ProdutoApiServiceService } from 'src/app/ServicesAPI/Produto/produto-ap
   templateUrl: './lista-register.page.html',
   styleUrls: ['./lista-register.page.scss'],
 })
-export class ListaRegisterPage implements 
-OnInit,
-OnDestroy,
-ViewWillEnter,
-ViewDidEnter,
-ViewWillLeave,
-ViewDidLeave {
+export class ListaRegisterPage implements OnInit {
   listas : Lista[];
   mercados : Mercado[];
   produtos : Produto[];
@@ -39,13 +29,11 @@ ViewDidLeave {
     private router : Router,
     private activatedRoute : ActivatedRoute,
     private renderer : Renderer2,
-    private listaService: ListaService,
     private messageService : MessageService,
     private mercadoApiService: MercadoApiServiceService,
     private produtoApiService : ProdutoApiServiceService
   ) {
     this.loading = false;
-    //this.listas = listaService.getLista();
    }
 
   ngOnInit() {
@@ -56,8 +44,6 @@ ViewDidLeave {
     this.form = this.formbuilder.group({
       id: [''],
       descricao: ['', [Validators.required, Validators.minLength(1)]],
-      /*produtos: [{}, Validators.required],
-      mercado: [{}, Validators.required],*/
       produtos: [[]],
       mercado: [[], Validators.required],
       categoria: [Tipo.CB, Validators.required]
@@ -67,29 +53,9 @@ ViewDidLeave {
 
     if (id) {
       this.findById(id);
-      this.listaApiService.findAllProdutos(id).subscribe((produto)=>{this.produtos = produto});
+      //this.listaApiService.findAllProdutos(id).subscribe((produto)=>{this.produtos = produto});
 
     }
-  }
-
-  ionViewWillEnter(): void {
-    console.log('GamesRegisterPage ionViewWillEnter');
-  }
-
-  ionViewDidEnter(): void {
-    console.log('GamesRegisterPage ionViewDidEnter');
-  }
-
-  ionViewWillLeave(): void {
-    console.log('GamesRegisterPage ionViewWillLeave');
-  }
-
-  ionViewDidLeave(): void {
-    console.log('GamesRegisterPage ionViewDidLeave');
-  }
-
-  ngOnDestroy(): void {
-    console.log('GamesRegisterPage ngOnDestroy');
   }
 
   findById(id: number) {
@@ -112,7 +78,10 @@ ViewDidLeave {
         () =>
           this.messageService.error(
             `Erro ao buscar a Lista com código ${id}`,
-            () => this.findById(id)
+            () => {
+              this.findById(id)
+              this.loading =  true;
+            }
           )
       );
   }
@@ -137,7 +106,8 @@ ViewDidLeave {
         },
         () => {
           this.messageService.error(`Erro ao salvar a Lista ${descricao}`, () =>{
-            this.salvar();
+          this.loading  =true;
+          this.salvar();
           }  
           );
         }
@@ -167,24 +137,6 @@ ViewDidLeave {
 
     return o1.id === o2.id;
   }  
-  /*
-  retornaProdutos(lista: Lista){
-    lista.produtos.forEach(element => {
-      this.produtoApiService.
-        findById(element.id).
-        subscribe( 
-          (produto) =>{
-            this.produtos.push(produto);
-          }
-        ) 
-    });
-
-    
-    
-    /*
-    this.produtoApiService.findById().subscribe((produto)=>{ this.produtos = produto})
-    
-  }*/
 
 
 }

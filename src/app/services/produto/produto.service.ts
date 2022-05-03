@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Produto, Categoria, Unidade } from 'src/app/app.module';
+import { Produto } from 'src/app/model/produto.model';
+import { Categoria, Unidade } from 'src/app/model/enums';
 
 @Injectable({
   providedIn: 'root'

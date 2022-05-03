@@ -1,17 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Produto } from 'src/app/app.module';
-import { ProdutoService } from 'src/app/produto.service';
-import { ActionSheetController, AlertController , 
-  ViewDidEnter,
-  ViewDidLeave,
-  ViewWillEnter,
-  ViewWillLeave,
- } from '@ionic/angular';
- import { finalize } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { Produto } from 'src/app/model/produto.model';
+import { ActionSheetController, AlertController ,  ViewWillEnter } from '@ionic/angular';
+import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ProdutoApiServiceService } from 'src/app/ServicesAPI/Produto/produto-api-service.service';
-import { Alert } from 'selenium-webdriver';
-import { MessageService } from 'src/app/services/message.service';
+import { MessageService } from 'src/app/services/Mensagem/message.service';
 
 @Component({
   selector: 'app-produto-list',
@@ -19,13 +12,7 @@ import { MessageService } from 'src/app/services/message.service';
   styleUrls: ['./produto-list.page.scss'],
 })
 
-export class ProdutoListPage implements 
- OnInit,
- OnDestroy,
- ViewWillEnter,
- ViewDidEnter,
- ViewWillLeave,
- ViewDidLeave   
+export class ProdutoListPage implements OnInit, ViewWillEnter  
   {
   produtos : Produto[];
   consulta : string;
@@ -33,44 +20,21 @@ export class ProdutoListPage implements
 
 
   constructor(
-    private produtoService: ProdutoService,
     private produtosApiserice : ProdutoApiServiceService,
     public actionSheetController: ActionSheetController,
     public alertController:  AlertController,
     private messageService: MessageService,
     private router: Router
     ) {
-      
-      //this.produtos = this.produtoService.getProduto();
-
       this.loading = false;
       this.produtos = [];
-      
-
    }
 
   ngOnInit() {
   }
 
-  ionViewDidEnter(): void {
-    console.log('GamesListPage ionViewDidEnter');
-  }
-
-  ngOnDestroy(): void {
-    console.log('GamesListPage ngOnDestroy');
-  }
-
-  ionViewWillLeave(): void {
-    console.log('GamesListPage ionViewWillLeave');
-  }
-
-  ionViewDidLeave(): void {
-    console.log('GamesListPage ionViewDidLeave');
-  }
-
   ionViewWillEnter(): void {
     this.listProdutos();
-    console.log('GamesListPage ionViewWillEnter');
   }
 
   listProdutos(){
@@ -83,12 +47,14 @@ export class ProdutoListPage implements
        })
      )
      .subscribe(
-       (produtos) => (this.produtos = produtos),
+       (produtos) => {
+          this.produtos = produtos;
+        },
        () =>{
-          //{alert('Erro ao buscar a lista de games')};
-          //this.messageService.error('Erro ao buscar a lista de games', () =>
-           this.listProdutos();
-           this.loading = false;
+            this.messageService.error(`Não foi possível carregar os itens.`,()=>{                   
+            this.loading = true;
+            });        
+            this.listProdutos();
           }
          );
   }
@@ -104,7 +70,7 @@ export class ProdutoListPage implements
         role: 'destructive',
         icon: 'pencil',
         handler: () => {
-          console.log('Editar Clicado');
+          //console.log('Editar Clicado');
           this.router.navigate(['/produto-register', produto.id]);
         }
       },{
@@ -112,7 +78,7 @@ export class ProdutoListPage implements
         role: 'destructive',
         icon: 'trash',
         handler:() => {
-          console.log('Deletar Clicado');
+          //console.log('Deletar Clicado');
           this.excluir(produto);
         }
       },
@@ -121,14 +87,14 @@ export class ProdutoListPage implements
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancelar Clicado');
+          //console.log('Cancelar Clicado');
         }
       }]
     });
     await actionSheet.present();
 
-    const { role } = await actionSheet.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
+    ///const { role } = await actionSheet.onDidDismiss();
+    //console.log('onDidDismiss resolved with role', role);
   }
 
 
@@ -144,21 +110,23 @@ export class ProdutoListPage implements
           {
             text: 'Sim',
             handler: () => {
-              
-              //this.produtoService.remove(produto.descricao);
-              //this.produtos = this.produtoService.getProduto();
               this.produtosApiserice
                 .remove(produto.id)
+                .pipe(
+                  finalize(() => {
+                    this.loading = false;
+                  })
+                )
                 .subscribe(
                   ()=>{
                     this.messageService.success(`Produto ${produto.descricao} excluido com sucesso`);
                     this.listProdutos();
                   },
                   ()=>{
-                    this.messageService.error(`Erro ao excluir o Produto ${produto.descricao}`,()=>{
+                      this.messageService.error(`Erro ao excluir o Produto ${produto.descricao}`,()=>{                   
+                      this.loading = true;
                       this.excluir(produto);
-                    });
-                    this.loading = true;       
+                    });     
                   }
                 )
             },
@@ -171,6 +139,7 @@ export class ProdutoListPage implements
       .then((alert) => alert.present());
   }
 
+  /*
   getPesquisaProduto(consulta : any){
     let nome = consulta.target.value; 
     if (nome && nome.trim() != '' ){
@@ -182,6 +151,7 @@ export class ProdutoListPage implements
     }
     
   }
+  */
 
 
 }

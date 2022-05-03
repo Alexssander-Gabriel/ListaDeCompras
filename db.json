@@ -2,19 +2,19 @@
   "produtos": [
     {
       "id": 2,
-      "descricao": "Tomate",
+      "descricao": "Tomate2",
       "categoria": "Frutas e Legumes",
       "preco": 8.9,
-      "foto": "https://www.drogariaminasbrasil.com.br/media/product/075/extrato-de-tomate-concentrado-sache-fugini-340g-48a.jpg",
-      "unidade": "Kilograma"
+      "unidade": "Kilograma",
+      "foto": "https://www.drogariaminasbrasil.com.br/media/product/075/extrato-de-tomate-concentrado-sache-fugini-340g-48a.jpg"
     },
     {
       "id": 3,
       "descricao": "Arroz Branco",
       "categoria": "Alimentos",
       "preco": 5.9,
-      "foto": "https://statics.angeloni.com.br/super/files/produtos/2132168/2132168_1_zoom.jpg",
-      "unidade": "Kilograma"
+      "unidade": "Kilo",
+      "foto": "https://statics.angeloni.com.br/super/files/produtos/2132168/2132168_1_zoom.jpg"
     },
     {
       "id": 4,
@@ -31,6 +31,14 @@
       "preco": 5,
       "unidade": "Unidade",
       "foto": "dfdf"
+    },
+    {
+      "id": 6,
+      "descricao": "Frango Cozido",
+      "categoria": "Alimentos",
+      "preco": 20,
+      "unidade": "Unidade",
+      "foto": "https://hiperideal.vteximg.com.br/arquivos/ids/182888-1000-1000/46094.jpg?v=637263634609230000"
     }
   ],
   "mercados": [
@@ -165,6 +173,39 @@
         }
       ],
       "categoria": "Receitas"
+    },
+    {
+      "id": 4,
+      "descricao": "sdfdsfsdfsd",
+      "produtos": [
+        {
+          "id": 2,
+          "descricao": "Tomate2",
+          "categoria": "Frutas e Legumes",
+          "preco": 8.9,
+          "unidade": "Kilograma",
+          "foto": "https://www.drogariaminasbrasil.com.br/media/product/075/extrato-de-tomate-concentrado-sache-fugini-340g-48a.jpg"
+        },
+        {
+          "id": 3,
+          "descricao": "Arroz Branco",
+          "categoria": "Alimentos",
+          "preco": 5.9,
+          "unidade": "Kilo",
+          "foto": "https://statics.angeloni.com.br/super/files/produtos/2132168/2132168_1_zoom.jpg"
+        }
+      ],
+      "mercado": [
+        {
+          "id": 1,
+          "nome": "Pellegrim2",
+          "endereco": "Morro da fumaça",
+          "contato": "99999-7070",
+          "atendimento": "Finais de Semana e Feriados",
+          "foto": "https://bpm.com.br/wp-content/uploads/2017/10/imagemobra_640x480-2-9.jpg"
+        }
+      ],
+      "categoria": "Compras Básicas"
     }
   ]
 }

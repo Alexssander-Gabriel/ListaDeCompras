@@ -13,27 +13,27 @@ const routes: Routes = [
   },
   {
     path: 'produto-list',
-    loadChildren: () => import('./Produto/produto-list/produto-list.module').then( m => m.ProdutoListPageModule)
+    loadChildren: () => import('./Paginas/Produto/produto-list/produto-list.module').then( m => m.ProdutoListPageModule)
   },
   {
     path: 'produto-register',
-    loadChildren: () => import('./Produto/produto-register/produto-register.module').then( m => m.ProdutoRegisterPageModule)
+    loadChildren: () => import('./Paginas/Produto/produto-register/produto-register.module').then( m => m.ProdutoRegisterPageModule)
   },
   {
     path: 'lista-list',
-    loadChildren: () => import('./Lista/lista-list/lista-list.module').then( m => m.ListaListPageModule)
+    loadChildren: () => import('./Paginas/Lista/lista-list/lista-list.module').then( m => m.ListaListPageModule)
   },
   {
     path: 'lista-register',
-    loadChildren: () => import('./Lista/lista-register/lista-register.module').then( m => m.ListaRegisterPageModule)
+    loadChildren: () => import('./Paginas/Lista/lista-register/lista-register.module').then( m => m.ListaRegisterPageModule)
   },
   {
     path: 'mercado-list',
-    loadChildren: () => import('./Mercado/mercado-list/mercado-list.module').then( m => m.MercadoListPageModule)
+    loadChildren: () => import('./Paginas/Mercado/mercado-list/mercado-list.module').then( m => m.MercadoListPageModule)
   },
   {
     path: 'mercado-register',
-    loadChildren: () => import('./Mercado/mercado-register/mercado-register.module').then( m => m.MercadoRegisterPageModule)
+    loadChildren: () => import('./Paginas/Mercado/mercado-register/mercado-register.module').then( m => m.MercadoRegisterPageModule)
   },
   {
     path: 'dashboard',

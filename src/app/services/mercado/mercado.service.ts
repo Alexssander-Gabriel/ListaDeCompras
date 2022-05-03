@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Mercado, Atendimento } from 'src/app/app.module';
+import { Mercado } from 'src/app/model/mercado.model';
+import { Atendimento } from 'src/app/model/enums';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Atendimento, Categoria, Lista, Tipo, Unidade } from './app.module';
+//import { Atendimento, Categoria, Lista, Tipo, Unidade } from '../../app.module';
+import { Lista } from 'src/app/model/lista.model';
+import { Categoria, Unidade, Tipo, Atendimento } from 'src/app/model/enums';
 
 @Injectable({
   providedIn: 'root'

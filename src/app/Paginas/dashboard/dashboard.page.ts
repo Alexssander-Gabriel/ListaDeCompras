@@ -1,20 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Lista, Produto } from 'src/app/app.module';
 import { ProdutoApiServiceService } from 'src/app/ServicesAPI/Produto/produto-api-service.service';
 import { ListaApiService } from 'src/app/ServicesAPI/Lista/lista-api.service';
 import { Chart } from 'chart.js';
-import { ThrowStmt } from '@angular/compiler';
-import { convertToParamMap } from '@angular/router';
 import { MercadoApiServiceService } from 'src/app/ServicesAPI/Mercado/mercado-api-service.service';
-import { async } from '@angular/core/testing';
-//import {  } from 'ng2-charts';
+import { ViewWillLeave, ViewWillEnter } from '@ionic/angular';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
 })
-export class DashboardPage implements OnInit {
+export class DashboardPage implements OnInit, ViewWillEnter, ViewWillLeave {
   @ViewChild('barCanvas') public barcanvas : ElementRef;
   loading: boolean;
   barChart : any;
@@ -23,15 +19,21 @@ export class DashboardPage implements OnInit {
   QtMercados : number;
   QtProdutos: number;
   QtListas : number;
+  QtTotLista : number;
   labels = ['Higiene','Alimentos','Cosmético','Limpeza','Frutas e Legumes','Outros'];
   labelsValue = [0,0,0,0,0,0];
   
   ngOnInit() {
     this.loading = false;
+    this.QtTotLista = 0.00;
   }
 
   ionViewWillEnter(){
     this.retornaResumo();
+  }
+
+  ionViewWillLeave(){
+    localStorage.setItem('totalLista',''+ this.QtTotLista);
   }
 
   
@@ -128,6 +130,7 @@ export class DashboardPage implements OnInit {
         this.QtListas += 1;  
         await item.produtos.forEach(element => {
           this.PrcMedioLista += element.preco;
+          this.QtTotLista += element.preco;
         });
       }
       this.PrcMedioLista = parseFloat((this.PrcMedioLista / this.QtListas).toFixed(2));

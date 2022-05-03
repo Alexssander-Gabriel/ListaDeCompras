@@ -1,29 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController,
-  ViewDidEnter,
-  ViewDidLeave,
-  ViewWillEnter,
-  ViewWillLeave
-} from '@ionic/angular';
-import { Mercado } from 'src/app/app.module';
-import { MercadoService } from 'src/app/mercado.service';
+import { ActionSheetController, AlertController } from '@ionic/angular';
+import { Mercado } from 'src/app/model/mercado.model';
 import { MercadoApiServiceService } from 'src/app/ServicesAPI/Mercado/mercado-api-service.service';
 import { finalize } from 'rxjs/operators';
-import { MessageService } from 'src/app/services/message.service';
+import { MessageService } from 'src/app/services/Mensagem/message.service';
 
 @Component({
   selector: 'app-mercado-list',
   templateUrl: './mercado-list.page.html',
   styleUrls: ['./mercado-list.page.scss'],
 })
-export class MercadoListPage implements
-OnInit,
-OnDestroy,
-ViewWillEnter,
-ViewDidEnter,
-ViewWillLeave,
-ViewDidLeave  
+export class MercadoListPage implements OnInit  
  
  {
   mercados : Mercado[];
@@ -34,38 +22,14 @@ ViewDidLeave
     public actionSheetController: ActionSheetController,
     public alertController:  AlertController,
     private router: Router,
-    private mercadoService : MercadoService,
     private mercadoApiService : MercadoApiServiceService,
     private messageService: MessageService
   ) {
-    //this.mercados = this.mercadoService.getMercados();
-
     this.loading = false;
     this.mercados = [];
   }
 
   ngOnInit() {
-  }
-
-  ionViewDidEnter(): void {
-    console.log('GamesListPage ionViewDidEnter');
-  }
-
-  ngOnDestroy(): void {
-    console.log('GamesListPage ngOnDestroy');
-  }
-
-  ionViewWillLeave(): void {
-    console.log('GamesListPage ionViewWillLeave');
-  }
-
-  ionViewDidLeave(): void {
-    console.log('GamesListPage ionViewDidLeave');
-  }
-
-  ionViewWillEnter(): void {
-    this.listMercados();
-    console.log('GamesListPage ionViewWillEnter');
   }
 
   listMercados(){
@@ -78,16 +42,15 @@ ViewDidLeave
        })
      )
      .subscribe(
-       (mercados) => (this.mercados = mercados),
+       (mercados) => {
+           this.mercados = mercados;        
+          } ,
        () =>{
-          //{alert('Erro ao buscar a lista de games')};
-          //this.messageService.error('Erro ao buscar a lista de games', () =>
-           this.listMercados();
-           this.loading = false;
+            this.loading = true;   
+            this.listMercados();
           }
          );
   }
-
 
 
   excluir(mercado: Mercado) {
@@ -99,10 +62,13 @@ ViewDidLeave
           {
             text: 'Sim',
             handler: () => {
-              //this.mercadoService.remove(mercado.nome);
-              //this.mercados = this.mercadoService.getMercados();
               this.mercadoApiService
               .remove(mercado.id)
+              .pipe(
+                finalize(()=>{
+                  this.loading = true;
+                })
+              )
               .subscribe(
                 ()=>{
                   this.messageService.success(`Mercado ${mercado.nome} excluido com sucesso`);

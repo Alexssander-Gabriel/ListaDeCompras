@@ -1,31 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Categoria, Unidade } from 'src/app/app.module';
-import { ProdutoService } from 'src/app/produto.service';
+import { Categoria, Unidade } from 'src/app/model/enums';
 import { ProdutoApiServiceService } from 'src/app/ServicesAPI/Produto/produto-api-service.service';
-import { MessageService } from 'src/app/services/message.service';
+import { MessageService } from 'src/app/services/Mensagem/message.service';
 import { finalize } from 'rxjs/operators';
-import {
-  ViewDidEnter,
-  ViewDidLeave,
-  ViewWillEnter,
-  ViewWillLeave,
-} from '@ionic/angular';
 
 @Component({
   selector: 'app-produto-register',
   templateUrl: './produto-register.page.html',
   styleUrls: ['./produto-register.page.scss'],
 })
-export class ProdutoRegisterPage 
- implements 
-  OnInit,
-  OnDestroy,
-  ViewWillEnter,
-  ViewDidEnter,
-  ViewWillLeave,
-  ViewDidLeave 
+export class ProdutoRegisterPage  implements  OnInit
   {
   form : FormGroup;
   loading : boolean;
@@ -34,12 +20,10 @@ export class ProdutoRegisterPage
 
   constructor(
     private formBuilder: FormBuilder,
-    private produtoService: ProdutoService,
     private produtoApiService : ProdutoApiServiceService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private messageService : MessageService
-
   ) {}
 
   ngOnInit() {
@@ -61,26 +45,6 @@ export class ProdutoRegisterPage
   }
 
 
-  ionViewWillEnter(): void {
-    console.log('GamesRegisterPage ionViewWillEnter');
-  }
-
-  ionViewDidEnter(): void {
-    console.log('GamesRegisterPage ionViewDidEnter');
-  }
-
-  ionViewWillLeave(): void {
-    console.log('GamesRegisterPage ionViewWillLeave');
-  }
-
-  ionViewDidLeave(): void {
-    console.log('GamesRegisterPage ionViewDidLeave');
-  }
-
-  ngOnDestroy(): void {
-    console.log('GamesRegisterPage ngOnDestroy');
-  }
-
   findById(id: number) {
     this.loading = true;
     this.produtoApiService
@@ -97,12 +61,11 @@ export class ProdutoRegisterPage
               ...produto,
             });
             this.urlFoto = produto.foto;
-            console.log(this.urlFoto);
           }
         },
         () =>
           this.messageService.error(
-            `Erro ao buscar o game com código ${id}`,
+            `Erro ao buscar o Produto com código ${id}`,
             () => this.findById(id)
           )
       );
@@ -128,7 +91,8 @@ salvar() {
       },
       () => {
         this.messageService.error(`Erro ao salvar o Produto ${descricao}`, () =>{
-          this.salvar();
+        this.loading = true;
+        this.salvar();
         }  
         );
       }

@@ -1,15 +1,8 @@
 import { Component, OnInit, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Atendimento, Mercado } from 'src/app/app.module';
-import { MercadoService } from 'src/app/mercado.service';
-import { MessageService } from 'src/app/services/message.service';
-import {
-  ViewDidEnter,
-  ViewDidLeave,
-  ViewWillEnter,
-  ViewWillLeave,
-} from '@ionic/angular';
+import { Atendimento } from 'src/app/model/enums';
+import { MessageService } from 'src/app/services/Mensagem/message.service';
 import { MercadoApiServiceService } from 'src/app/ServicesAPI/Mercado/mercado-api-service.service';
 import { finalize } from 'rxjs/operators';
 
@@ -19,14 +12,7 @@ import { finalize } from 'rxjs/operators';
   templateUrl: './mercado-register.page.html',
   styleUrls: ['./mercado-register.page.scss'],
 })
-export class MercadoRegisterPage 
-implements 
-OnInit,
-OnDestroy,
-ViewWillEnter,
-ViewDidEnter,
-ViewWillLeave,
-ViewDidLeave {
+export class MercadoRegisterPage implements OnInit{
   form : FormGroup;
   fotinho : string;
   username : any;
@@ -34,7 +20,6 @@ ViewDidLeave {
 
   constructor(
     private formBuilder: FormBuilder,
-    private mercadoService: MercadoService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private renderer: Renderer2,
@@ -53,31 +38,10 @@ ViewDidLeave {
     });
 
     const id = +this.activatedRoute.snapshot.params.id;
-    //const mercado = this.mercadoService.findById(id);
-    
+
     if (id) {
       this.findById(id);
     }
-  }
-
-  ionViewWillEnter(): void {
-    console.log('GamesRegisterPage ionViewWillEnter');
-  }
-
-  ionViewDidEnter(): void {
-    console.log('GamesRegisterPage ionViewDidEnter');
-  }
-
-  ionViewWillLeave(): void {
-    console.log('GamesRegisterPage ionViewWillLeave');
-  }
-
-  ionViewDidLeave(): void {
-    console.log('GamesRegisterPage ionViewDidLeave');
-  }
-
-  ngOnDestroy(): void {
-    console.log('GamesRegisterPage ngOnDestroy');
   }
 
   findById(id: number) {
@@ -105,13 +69,7 @@ ViewDidLeave {
       );
   }
 
-  /*
-  salvar() {
-    this.mercadoService.save(this.form.value);
-    this.router.navigate(['mercado-list']);
-  }
-  */
-
+ 
   salvar() {
     const { nome } = this.form.value;
   
