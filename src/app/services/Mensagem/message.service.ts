@@ -35,7 +35,12 @@ export class MessageService {
         {
           icon: 'refresh-outline',
           side: 'start',
-          handler: () => handler(),
+          handler: () => //handler(),
+          {
+            handler();
+          }
+
+          
         },
         { side: 'end', icon: 'close-outline' },
       ],

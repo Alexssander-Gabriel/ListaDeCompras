@@ -13,10 +13,14 @@ ion-card{
         background-color: #2596be;
 
     }
+    h1,h2{
+        font-size: 14px;
+    }
     ion-item{
         flex: 1;
         flex-direction: row;
         background-color: #2596be;
+        --background:#2596be;
         font-size: 10px;
         h1, h2{
             /*font-size: 0.6rem;*/

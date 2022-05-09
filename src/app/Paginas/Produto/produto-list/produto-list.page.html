@@ -1,5 +1,6 @@
 <ion-header>
   <ion-toolbar>
+    <ion-progress-bar *ngIf="loading" type="indeterminate" color="secondary"></ion-progress-bar>
     
     <ion-button class="menu" fill="clear" slots="icon-only" color="secondary">
       <ion-menu-button menu="main-menu"></ion-menu-button>
@@ -7,8 +8,6 @@
     
       <ion-icon class="ion-text-center" name="basket-outline"></ion-icon>
       <ion-text class="ion-text-center"><strong>Produtos</strong></ion-text>
-      <ion-spinner *ngIf="loading"></ion-spinner>
-
       <div>   
           <ion-searchbar  placeholder="Pesquisar" 
                           [(ngModel)]="consulta"
@@ -20,7 +19,6 @@
 </ion-header>
 
 <ion-content>
-
  <ion-card  (click)="abrirListaAcao(produto)" 
     class="ion-padding-horizontal" 
  *ngFor= "let produto of produtos | filter:consulta">

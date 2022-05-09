@@ -4,6 +4,7 @@ import { ListaApiService } from 'src/app/ServicesAPI/Lista/lista-api.service';
 import { Chart } from 'chart.js';
 import { MercadoApiServiceService } from 'src/app/ServicesAPI/Mercado/mercado-api-service.service';
 import { ViewWillLeave, ViewWillEnter } from '@ionic/angular';
+import { MessageService } from 'src/app/services/Mensagem/message.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,7 +41,8 @@ export class DashboardPage implements OnInit, ViewWillEnter, ViewWillLeave {
   constructor(
     private listaApiService : ListaApiService,
     private produtoApiService: ProdutoApiServiceService,
-    private mercadoApiService: MercadoApiServiceService
+    private mercadoApiService: MercadoApiServiceService,
+    private messageService : MessageService
   ) {
 
    }
@@ -116,6 +118,9 @@ export class DashboardPage implements OnInit, ViewWillEnter, ViewWillLeave {
         }
         this.barcanvasMethod();
         this.loading = false;
+       },
+       (error)=>{
+        this.messageService.error('Erro ao Carregar dados do Servidor, Favor Recarregar a Página!',()=>{});
        }
      );
 

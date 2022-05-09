@@ -5,6 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ProdutoApiServiceService } from 'src/app/ServicesAPI/Produto/produto-api-service.service';
 import { MessageService } from 'src/app/services/Mensagem/message.service';
+import { JsonpClientBackend } from '@angular/common/http';
 
 @Component({
   selector: 'app-produto-list',
@@ -17,6 +18,7 @@ export class ProdutoListPage implements OnInit, ViewWillEnter
   produtos : Produto[];
   consulta : string;
   loading : boolean;
+  carregaLista : number;
 
 
   constructor(
@@ -49,17 +51,20 @@ export class ProdutoListPage implements OnInit, ViewWillEnter
      .subscribe(
        (produtos) => {
           this.produtos = produtos;
+          localStorage.setItem('listaProdutos',JSON.stringify(this.produtos));
         },
-       () =>{
-            this.messageService.error(`Não foi possível carregar os itens.`,()=>{                   
-            this.loading = true;
-            });        
-            this.listProdutos();
+       async (error) =>{
+        this.produtos = JSON.parse(localStorage.getItem('listaProdutos')); 
+        if(this.produtos.length == 0){
+          await this.messageService.error('Não foi possível buscar itens do armazenamento interno.',()=>{});
+         } else {
+           await this.messageService.error('Não foi possível Carregar os itens do servidor! Carregado Itens do armazenamento Interno.',()=>{});
+         } 
+            
           }
          );
   }
   
-
   async abrirListaAcao(produto : Produto) {
     
     const actionSheet = await this.actionSheetController.create({
@@ -70,7 +75,6 @@ export class ProdutoListPage implements OnInit, ViewWillEnter
         role: 'destructive',
         icon: 'pencil',
         handler: () => {
-          //console.log('Editar Clicado');
           this.router.navigate(['/produto-register', produto.id]);
         }
       },{
@@ -78,7 +82,6 @@ export class ProdutoListPage implements OnInit, ViewWillEnter
         role: 'destructive',
         icon: 'trash',
         handler:() => {
-          //console.log('Deletar Clicado');
           this.excluir(produto);
         }
       },
@@ -87,14 +90,10 @@ export class ProdutoListPage implements OnInit, ViewWillEnter
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          //console.log('Cancelar Clicado');
         }
       }]
     });
     await actionSheet.present();
-
-    ///const { role } = await actionSheet.onDidDismiss();
-    //console.log('onDidDismiss resolved with role', role);
   }
 
 

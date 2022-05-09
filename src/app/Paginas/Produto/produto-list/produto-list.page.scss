@@ -9,8 +9,13 @@ ion-header{
         ion-button{
           color: black;
         }
+        div{
+          margin: 0px;
+        }
     }
   }
+
+
 
   ion-img{
     width: 150px;
@@ -31,7 +36,7 @@ ion-header{
     /*width: 45%;
     min-width: 300px;
     float: left;*/
-    border: 0.5px solid  #2596be;
+    border: 0.5px solid  #03a1fc;
 
     ion-text{
       width: 100%;

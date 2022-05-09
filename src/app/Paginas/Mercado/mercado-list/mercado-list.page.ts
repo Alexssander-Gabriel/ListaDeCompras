@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { ActionSheetController, AlertController, ViewWillEnter } from '@ionic/angular';
 import { Mercado } from 'src/app/model/mercado.model';
 import { MercadoApiServiceService } from 'src/app/ServicesAPI/Mercado/mercado-api-service.service';
 import { finalize } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { MessageService } from 'src/app/services/Mensagem/message.service';
   templateUrl: './mercado-list.page.html',
   styleUrls: ['./mercado-list.page.scss'],
 })
-export class MercadoListPage implements OnInit  
+export class MercadoListPage implements OnInit, ViewWillEnter  
  
  {
   mercados : Mercado[];
@@ -32,6 +32,10 @@ export class MercadoListPage implements OnInit
   ngOnInit() {
   }
 
+  ionViewWillEnter(){
+      this.listMercados();
+  }
+
   listMercados(){
     this.loading = true; 
     this.mercadoApiService
@@ -43,11 +47,20 @@ export class MercadoListPage implements OnInit
      )
      .subscribe(
        (mercados) => {
-           this.mercados = mercados;        
+           this.mercados = mercados;
+           localStorage.setItem('listaMercados', JSON.stringify(mercados));        
           } ,
        () =>{
-            this.loading = true;   
-            this.listMercados();
+            this.mercados = JSON.parse(localStorage.getItem('listaMercados'));
+            if (this.mercados.length == 0){
+              this.messageService.error(`Erro ao carregar Itens.` ,()=>{
+                // não esta funcionando mais deveria.
+                this.listMercados();
+              })
+            } else {
+              this.messageService.error(`Erro ao carregar itens do Servidor, Carregado itens do armazenamento interno, favor recarregar a página.`,()=>{});
+            }
+            //this.listMercados();
           }
          );
   }

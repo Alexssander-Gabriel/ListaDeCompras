@@ -1,24 +1,17 @@
 <ion-header>
   <ion-toolbar>
+    <ion-progress-bar *ngIf="loading" type="indeterminate" color="secondary"></ion-progress-bar> 
     <ion-button routerLink="/produto-list" fill="clear" slots="icon-only" color="light">
       <ion-icon name="arrow-back-outline"></ion-icon>
     </ion-button> 
-      <ion-text class="ion-text-center"><strong>Cadastro de Produto</strong></ion-text>
-        <ion-spinner *ngIf="loading"></ion-spinner>
+      <ion-text class="ion-text-center"><strong>Cadastro de Produto</strong></ion-text> 
   </ion-toolbar>
 </ion-header>
 
 <ion-content [formGroup]="form">
     <ion-card *ngIf="!loading">
-      <!--
-      <div class="foto">
-        
-      </div>
-      -->
-
       <ion-img [src]="urlFoto"></ion-img>
         
-
       <ion-item>
         <ion-label position="stacked">Descrição: </ion-label>
         <ion-input type="text" formControlName="descricao"></ion-input>

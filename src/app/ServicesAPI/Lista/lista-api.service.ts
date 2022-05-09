@@ -43,7 +43,7 @@ export class ListaApiService {
            totalLista += element.preco;
          });
        }
-       localStorage.setItem('totalLista',''+ totalLista);
+       localStorage.setItem('totalLista',''+ totalLista.toFixed(2));
       });
     })
   }

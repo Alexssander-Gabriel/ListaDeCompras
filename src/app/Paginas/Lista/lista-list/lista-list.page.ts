@@ -4,7 +4,6 @@ import { Lista } from 'src/app/model/lista.model';
 import { ListaApiService } from 'src/app/ServicesAPI/Lista/lista-api.service';
 import { finalize } from 'rxjs/operators';
 import { MessageService } from 'src/app/services/Mensagem/message.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-list',
@@ -21,7 +20,6 @@ export class ListaListPage implements OnInit, ViewWillEnter
 
   constructor(
     private alertController : AlertController,
-    private route : Router,
     private listaApiService : ListaApiService,
     private messageService : MessageService
   ) {
@@ -89,12 +87,18 @@ export class ListaListPage implements OnInit, ViewWillEnter
      .subscribe(
        (listaCompra) => {
          this.listas = listaCompra;
+         localStorage.setItem('listaListas', JSON.stringify(listaCompra));
         },
         (error)=>{
-          this.messageService.error('Erro ao Carregar Lista do servidor',()=>{
-          this.loading = true
-          this.listLista();
-          })  
+          this.listas = JSON.parse(localStorage.getItem('listaListas'));  
+          if (this.listas.length == 0) {
+            this.messageService.error(`Erro ao carregar Itens.` ,()=>{
+              // não esta funcionando mais deveria.
+              this.listLista();
+            })
+          } else {
+            this.messageService.error(`Erro ao carregar itens do Servidor, Carregado itens do armazenamento interno, favor recarregar a página.`,()=>{});
+          } 
         }
          );
   }

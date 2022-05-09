@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
+    <ion-progress-bar *ngIf="loading" type="indeterminate" color="secondary"></ion-progress-bar>
     <ion-button class="menu" fill="clear" slots="icon-only" color="secondary">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-button>
       <ion-icon class="ion-text-center" name="storefront-outline"></ion-icon>
       <ion-text class="ion-text-center"><strong>Lista de Mercados</strong></ion-text> 
-      <ion-spinner *ngIf="loading"></ion-spinner>
       <div>
         <ion-searchbar  placeholder="Pesquisar" 
         [(ngModel)]="consulta"
