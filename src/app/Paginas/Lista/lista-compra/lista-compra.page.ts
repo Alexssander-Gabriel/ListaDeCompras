@@ -63,14 +63,7 @@ export class ListaCompraPage implements OnInit {
           }
          );
 
-         console.log(this.lista); 
+         //console.log(this.lista); 
   }
-
-  addProduto(id: number){
-
-  }
-
-  removeProduto(id : number){
-
-  }
+  
 }
