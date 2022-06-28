@@ -2,9 +2,10 @@ import { Component, OnInit, OnDestroy, Renderer2, ViewChild } from '@angular/cor
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Atendimento } from 'src/app/model/enums';
-import { MessageService } from 'src/app/services/Mensagem/message.service';
 import { MercadoApiServiceService } from 'src/app/ServicesAPI/Mercado/mercado-api-service.service';
 import { finalize } from 'rxjs/operators';
+import { Mercado } from 'src/app/model/mercado.model';
+import { MessageService } from 'src/app/services/Mensagem/message.service';
 
 
 @Component({
@@ -17,27 +18,30 @@ export class MercadoRegisterPage implements OnInit{
   fotinho : string;
   username : any;
   loading : boolean;
+  mercados : Mercado[];
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private renderer: Renderer2,
     private messageService : MessageService,
     private mercadoApiService : MercadoApiServiceService
   ) { }
 
   ngOnInit() {
+    this.mercadoApiService.getMercados().subscribe((mercadinhos)=>(this.mercados = mercadinhos));
     this.form = this.formBuilder.group({
-      id: [''],
-      nome: ['', [Validators.required, Validators.minLength(3)]],
-      endereco: ['', Validators.required],
-      contato: [''],
-      atendimento: [Atendimento.FF, Validators.required],
-      foto: ['', Validators.required],
+      atendimento: [Atendimento.A, Validators.required],
+      contato: ['', [Validators.required, Validators.minLength(1)]], 
+      endereco: ['', [Validators.required, Validators.minLength(1)]], 
+      id: [''],  
+      nome: ['', [Validators.required, Validators.minLength(1)]],     
+      urlFoto: ['', [Validators.required, Validators.minLength(1)]],
+      ativo: ['']         
     });
 
     const id = +this.activatedRoute.snapshot.params.id;
+    console.log(id);
 
     if (id) {
       this.findById(id);
@@ -61,9 +65,9 @@ export class MercadoRegisterPage implements OnInit{
             });
           }
         },
-        () =>
+        (ex) =>
           this.messageService.error(
-            `Erro ao buscar o Mercado com código ${id}`,
+            `Erro ao buscar o Mercado com código ${id}! Erro: ${ex.error.erro}`,
             () => this.findById(id)
           )
       );
@@ -71,12 +75,18 @@ export class MercadoRegisterPage implements OnInit{
 
  
   salvar() {
-    const { nome } = this.form.value;
+    const { value } = this.form;
+
+    const { id, nome } = value;
+
+    if (!id){
+      delete value.id;
+    }
   
     this.loading = true;
   
     this.mercadoApiService
-      .save(this.form.value)
+      .save(value)
       .pipe(
         finalize(() => {
           this.loading = false;
@@ -87,9 +97,11 @@ export class MercadoRegisterPage implements OnInit{
           this.messageService.success(`Mercado ${nome} salvo com sucesso!`);
           this.router.navigate(['mercado-list']);
         },
-        () => {
-          this.messageService.error(`Erro ao salvar o Mercado ${nome}`, () =>{
-            this.salvar();
+        (ex) => {
+          let mensagem = ex.error.erro;
+          this.messageService.error(`Erro: ${mensagem}`, () =>{
+          this.loading = true;
+          this.salvar();
           }  
           );
         }

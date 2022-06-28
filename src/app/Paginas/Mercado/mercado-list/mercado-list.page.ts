@@ -6,6 +6,7 @@ import { MercadoApiServiceService } from 'src/app/ServicesAPI/Mercado/mercado-ap
 import { finalize } from 'rxjs/operators';
 import { MessageService } from 'src/app/services/Mensagem/message.service';
 
+
 @Component({
   selector: 'app-mercado-list',
   templateUrl: './mercado-list.page.html',
@@ -87,8 +88,9 @@ export class MercadoListPage implements OnInit, ViewWillEnter
                   this.messageService.success(`Mercado ${mercado.nome} excluido com sucesso`);
                   this.listMercados();
                 },
-                ()=>{
-                  this.messageService.error(`Erro ao excluir o Mercado ${mercado.nome}`,()=>{
+                (ex)=>{
+                  var mensagem = ex.error.erro;
+                  this.messageService.error(`${mensagem}`,()=>{
                     this.excluir(mercado);
                   });
                   this.loading = true;       

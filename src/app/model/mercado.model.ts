@@ -5,6 +5,7 @@ export interface Mercado {
     nome: string;
     endereco : string;
     contato: string;
-    foto: string;
+    urlFoto: string;
     atendimento : Atendimento;
+    ativo: string;
   }

@@ -10,10 +10,10 @@
 
 <ion-content [formGroup]="form">
     <ion-card *ngIf="!loading">
-      <ion-img [src]="urlFoto"></ion-img>
+      <ion-img [src]="urlFotoA"></ion-img>
         
       <ion-item>
-        <ion-label position="stacked">Descrição: </ion-label>
+        <ion-label id="descricaoProduto" position="stacked">Descrição: </ion-label>
         <ion-input type="text" formControlName="descricao"></ion-input>
       </ion-item>
 
@@ -28,28 +28,35 @@
           <ion-select-option value="Outros">Outros</ion-select-option>
         </ion-select>
       </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked">Preço: </ion-label>
-        <ion-input type="number" formControlName="preco"></ion-input>
-      </ion-item>
-
+      
       <ion-item >
         <ion-label position="stacked">Unidade: </ion-label>
         <ion-select  formControlName="unidade">
+          <ion-select-option value="Unidade">Unidade</ion-select-option>
           <ion-select-option value="Peça">Peça</ion-select-option>
           <ion-select-option value="Kilo">Kilo</ion-select-option>
           <ion-select-option value="Caixa">Caixa</ion-select-option>
-          <ion-select-option value="Saco">Saco</ion-select-option>
           <ion-select-option value="Gramas">Gramas</ion-select-option>
           <ion-select-option value="Metros">Metros</ion-select-option>
-          <ion-select-option value="Unidade">Unidade</ion-select-option>
         </ion-select>
       </ion-item>
       
       <ion-item>
+        <ion-label position="stacked">Preço: </ion-label>
+        <ion-input type="number" formControlName="preco"></ion-input>
+      </ion-item>
+      
+      <ion-item>
         <ion-label position="stacked">Foto (URL): </ion-label>
-        <ion-input type="text" formControlName="foto"></ion-input>
+        <ion-input type="text" formControlName="urlFoto"></ion-input>
+      </ion-item>
+
+      <ion-item >
+        <ion-label position="stacked">Ativo: </ion-label>
+        <ion-select  formControlName="ativo">
+          <ion-select-option value="sim">Sim</ion-select-option>
+          <ion-select-option value="nao">Não</ion-select-option>
+        </ion-select>
       </ion-item>
   </ion-card>
 </ion-content>
@@ -59,7 +66,7 @@
     <ion-text>Cancelar</ion-text>
   </ion-button>
   <ion-button (click)="salvar()" [disabled]="!form.valid">
-    <ion-text>Adicionar</ion-text>
+    <ion-text>Gravar</ion-text>
     <ion-icon name="checkmark-outline"></ion-icon>
   </ion-button>
 </ion-footer>

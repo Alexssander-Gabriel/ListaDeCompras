@@ -31,14 +31,23 @@
       <ion-select formControlName="atendimento">
         <ion-select-option value="Finais de Semana">Finais de Semana</ion-select-option>
         <ion-select-option value="Finais de Semana e Feriados">Finais de Semana e FeriadosPS</ion-select-option>
-        <ion-select-option value="Segunda a Sexta">Esportes</ion-select-option>
+        <ion-select-option value="Segunda a Sexta">Segunda a Sexta</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Foto (URL): </ion-label>
-      <ion-input type="text" formControlName="foto"></ion-input>
+      <ion-input type="text" formControlName="urlFoto"></ion-input>
     </ion-item>
+
+    <ion-item >
+      <ion-label position="stacked">Ativo: </ion-label>
+      <ion-select  formControlName="ativo">
+        <ion-select-option value="sim">Sim</ion-select-option>
+        <ion-select-option value="nao">Não</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
 </div>
 </ion-content>
 

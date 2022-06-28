@@ -5,6 +5,7 @@ import { Chart } from 'chart.js';
 import { MercadoApiServiceService } from 'src/app/ServicesAPI/Mercado/mercado-api-service.service';
 import { ViewWillLeave, ViewWillEnter } from '@ionic/angular';
 import { MessageService } from 'src/app/services/Mensagem/message.service';
+import { DashBoardService } from 'src/app/ServicesAPI/DashBoard/dash-board.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,6 +40,7 @@ export class DashboardPage implements OnInit, ViewWillEnter, ViewWillLeave {
 
   
   constructor(
+    private dashBoardApiService : DashBoardService,
     private listaApiService : ListaApiService,
     private produtoApiService: ProdutoApiServiceService,
     private mercadoApiService: MercadoApiServiceService,
@@ -90,6 +92,8 @@ export class DashboardPage implements OnInit, ViewWillEnter, ViewWillLeave {
 
 
   async retornaResumo(){
+   
+   
     this.PrcMedioProduto = 0.00;
     this.QtProdutos = 0;
 
@@ -124,9 +128,10 @@ export class DashboardPage implements OnInit, ViewWillEnter, ViewWillLeave {
        }
      );
 
-     this.PrcMedioLista = 0.00;
-     this.QtListas = 0;
+     //this.PrcMedioLista = 0.00;
+     //this.QtListas = 0;
 
+     /*
      await this.listaApiService.getListaCompras()
      .subscribe(async(lista)=>
      {      
@@ -134,15 +139,19 @@ export class DashboardPage implements OnInit, ViewWillEnter, ViewWillLeave {
         this.loading = true;
         this.QtListas += 1;  
         await item.produtos.forEach(element => {
-          this.PrcMedioLista += element.preco;
-          this.QtTotLista += element.preco;
+         // this.PrcMedioLista += element.preco;
+         // this.QtTotLista += element.preco;
         });
       }
-      this.PrcMedioLista = parseFloat((this.PrcMedioLista / this.QtListas).toFixed(2));
+      //this.PrcMedioLista = parseFloat((this.PrcMedioLista / this.QtListas).toFixed(2));
       this.loading = false;
      });
+     */
 
-     this.QtMercados = 0;
+     
+     
+     /*
+     this.QtMercados =  0.00;
      await this.mercadoApiService.findAll()
      .subscribe((mercado)=>{
        this.loading = true;
@@ -150,7 +159,16 @@ export class DashboardPage implements OnInit, ViewWillEnter, ViewWillLeave {
          this.QtMercados += 1;
        });
        this.loading = false;
+     });*/
+
+     this.dashBoardApiService.getDashBoard().subscribe((dash) =>{
+      this.QtMercados = dash.mercadosQuantidade;
+      this.QtListas = dash.listasQuantidade;
+      this.PrcMedioLista = dash.precoMedioListas;
+      this.PrcMedioProduto = dash.precoMedioProdutos;
+
      });
+     
   }
 
 }

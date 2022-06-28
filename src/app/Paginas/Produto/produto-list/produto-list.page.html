@@ -30,10 +30,9 @@
   </ion-card-header>
 
   <ion-card-content>
-    <ion-img [src] = "produto.foto"></ion-img>
+    <ion-img [src] = "produto.urlFoto"></ion-img>
     <ion-item>
-      <ion-text><strong>{{produto.unidade}}</strong></ion-text>
-      <ion-text><strong>Preço:</strong> {{produto.preco | currency : 'R$ '}}</ion-text>
+      <ion-text class="ion-text-center"><strong>Preço:</strong> {{produto.preco | currency : 'R$ '}} {{produto.unidade}}</ion-text>
     </ion-item>
   </ion-card-content>
 </ion-card>

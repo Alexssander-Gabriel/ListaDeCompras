@@ -4,8 +4,8 @@ import { ActionSheetController, AlertController ,  ViewWillEnter } from '@ionic/
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ProdutoApiServiceService } from 'src/app/ServicesAPI/Produto/produto-api-service.service';
-import { MessageService } from 'src/app/services/Mensagem/message.service';
 import { JsonpClientBackend } from '@angular/common/http';
+import { MessageService } from 'src/app/services/Mensagem/message.service';
 
 @Component({
   selector: 'app-produto-list',
@@ -53,7 +53,7 @@ export class ProdutoListPage implements OnInit, ViewWillEnter
           this.produtos = produtos;
           localStorage.setItem('listaProdutos',JSON.stringify(this.produtos));
         },
-       async (error) =>{
+       async ( {error} ) =>{
         this.produtos = JSON.parse(localStorage.getItem('listaProdutos')); 
         if(this.produtos.length == 0){
           await this.messageService.error('Não foi possível buscar itens do armazenamento interno.',()=>{});
@@ -97,7 +97,7 @@ export class ProdutoListPage implements OnInit, ViewWillEnter
   }
 
 
-
+  
   excluir(produto: Produto) {
     this.loading = true;
     
@@ -121,8 +121,9 @@ export class ProdutoListPage implements OnInit, ViewWillEnter
                     this.messageService.success(`Produto ${produto.descricao} excluido com sucesso`);
                     this.listProdutos();
                   },
-                  ()=>{
-                      this.messageService.error(`Erro ao excluir o Produto ${produto.descricao}`,()=>{                   
+                  (ex)=>{
+                      var mensagem = ex.error.erro;
+                      this.messageService.error(`${mensagem}`,()=>{                   
                       this.loading = true;
                       this.excluir(produto);
                     });     
@@ -137,20 +138,5 @@ export class ProdutoListPage implements OnInit, ViewWillEnter
       })
       .then((alert) => alert.present());
   }
-
-  /*
-  getPesquisaProduto(consulta : any){
-    let nome = consulta.target.value; 
-    if (nome && nome.trim() != '' ){
-      this.produtos = this.produtoService.getProduto(nome);
-     // console.log('Filtrado pelo nome:'+ nome);
-    } else {
-      this.produtos = this.produtoService.getProduto();
-    //  console.log('Não encontrado');
-    }
-    
-  }
-  */
-
 
 }

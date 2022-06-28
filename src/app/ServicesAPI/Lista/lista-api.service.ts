@@ -14,22 +14,22 @@ export class ListaApiService {
    }
 
   getListaCompras(): Observable<Lista[]> {
-    return this.httpClient.get<Lista[]>(`${environment.apiUrl}/listaCompras`);
+    return this.httpClient.get<Lista[]>(`${environment.apiUrl}/listas`);
   }
 
   remove(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${environment.apiUrl}/listaCompras/${id}`);
+    return this.httpClient.delete<void>(`${environment.apiUrl}/listas/${id}`);
   }
 
   findById(id: number): Observable<Lista> {
-    return this.httpClient.get<Lista>(`${environment.apiUrl}/listaCompras/${id}`);
+    return this.httpClient.get<Lista>(`${environment.apiUrl}/listas/${id}`);
   }
 
   save(lista: Lista): Observable<Lista> {
     if(lista.id) {
-      return this.httpClient.put<Lista>(`${environment.apiUrl}/listaCompras/${lista.id}`, lista);
+      return this.httpClient.put<Lista>(`${environment.apiUrl}/listas/${lista.id}`, lista);
     }
-    return this.httpClient.post<Lista>(`${environment.apiUrl}/listaCompras`, lista);
+    return this.httpClient.post<Lista>(`${environment.apiUrl}/listas`, lista);
   }
 
   armazenaTotalListas(){
@@ -46,6 +46,18 @@ export class ListaApiService {
        localStorage.setItem('totalLista',''+ totalLista.toFixed(2));
       });
     })
+  }
+
+  retornaTotalListas(): number{
+    var retorno = 0.00;
+    this.getListaCompras().subscribe((lista)=>{
+      for (const item of lista) {
+        item.produtos.forEach(e => {
+          retorno += e.preco;
+        })
+      }
+    });
+    return retorno;
   }
 
 

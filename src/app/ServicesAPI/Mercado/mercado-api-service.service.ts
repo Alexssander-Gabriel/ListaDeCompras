@@ -29,6 +29,7 @@ export class MercadoApiServiceService {
   }
 
   save(mercado: Mercado): Observable<Mercado> {
+    console.log(mercado);
     if(mercado.id) {
       return this.httpClient.put<Mercado>(`${environment.apiUrl}/mercados/${mercado.id}`, mercado);
     }

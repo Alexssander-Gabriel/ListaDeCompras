@@ -24,7 +24,7 @@ export enum Unidade{
   }
 
   export enum Atendimento{
-    FS = 'Finais de Semana',
-    FF = 'Finais de Semana e Feriados',
-    SA = 'Segunda a Sexta'
+    A = 'Finais de Semana',
+    B = 'Finais de Semana e Feriados',
+    C = 'Segunda a Sexta'
   }

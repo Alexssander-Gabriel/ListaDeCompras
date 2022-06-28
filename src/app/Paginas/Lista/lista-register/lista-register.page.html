@@ -27,7 +27,7 @@
 
       <ion-item>
           <ion-label>Mercados:</ion-label>
-          <ion-select formControlName="mercado" multiple="true" cancelText="Cancelar" [compareWith]="compareWithMercado">
+          <ion-select formControlName="mercados" multiple="true" cancelText="Cancelar" [compareWith]="compareWithMercado">
             <ion-select-option *ngFor="let mercado of mercados" [value]="mercado">
               {{ mercado.nome }}
             </ion-select-option>
@@ -41,17 +41,7 @@
               {{ produto.descricao }}
             </ion-select-option>
           </ion-select>
-      </ion-item>
-
-      <!--
-      <ion-list>
-        <ion-item *ngFor="let produto of Produtos">
-          <ion-label>produto.nome </ion-label>
-        </ion-item>
-      </ion-list>
-      -->
-
-          
+      </ion-item>          
   </div>
 
 

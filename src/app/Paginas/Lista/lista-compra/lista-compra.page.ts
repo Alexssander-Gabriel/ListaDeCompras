@@ -15,6 +15,7 @@ export class ListaCompraPage implements OnInit {
   loading : boolean;
   quantidades : [];
   lista : Lista;
+  descricaoLista : string;
   Produtos : Produto[];
   consulta : string;
   categoriazinha: ['Higiene','Alimentos','Cosmético','Limpeza','Frutas e Legumes','Outros'];
@@ -45,6 +46,7 @@ export class ListaCompraPage implements OnInit {
      )
      .subscribe(
         async(listaCompra) => {
+          this.descricaoLista = listaCompra.descricao;
           await listaCompra.produtos
           .sort((a : Produto,b: Produto)=>{
             let x =  a.categoria.toUpperCase().trim();

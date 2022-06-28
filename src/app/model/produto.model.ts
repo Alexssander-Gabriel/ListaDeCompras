@@ -4,7 +4,8 @@ export interface Produto {
     id: number;
     descricao: string;
     categoria : Categoria;
+    unidade: Unidade;
     preco: number;
-    foto: string;
-    unidade : Unidade;
+    urlFoto: string;
+    ativo: string;
   }

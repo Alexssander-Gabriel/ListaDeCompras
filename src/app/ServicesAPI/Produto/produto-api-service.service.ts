@@ -24,11 +24,12 @@ export class ProdutoApiServiceService {
   }
   
 
-  save(game: Produto): Observable<Produto> {
-    if(game.id) {
-      return this.httpClient.put<Produto>(`${environment.apiUrl}/produtos/${game.id}`, game);
+  save(produto: Produto): Observable<Produto> {
+    console.log(produto);
+    if(produto.id) {
+      return this.httpClient.put<Produto>(`${environment.apiUrl}/produtos/${produto.id}`, produto);
     }
-    return this.httpClient.post<Produto>(`${environment.apiUrl}/produtos`, game);
+    return this.httpClient.post<Produto>(`${environment.apiUrl}/produtos`, produto);
   }
 }
 

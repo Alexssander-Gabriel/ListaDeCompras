@@ -5,11 +5,11 @@ import { Produto } from 'src/app/model/produto.model';
 import { Lista } from 'src/app/model/lista.model';
 import { finalize } from 'rxjs/operators';
 import { ListaApiService } from 'src/app/ServicesAPI/Lista/lista-api.service';
-import { MessageService } from 'src/app/services/Mensagem/message.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MercadoApiServiceService } from 'src/app/ServicesAPI/Mercado/mercado-api-service.service';
 import { ProdutoApiServiceService } from 'src/app/ServicesAPI/Produto/produto-api-service.service';
+import { MessageService } from 'src/app/services/Mensagem/message.service';
 
 @Component({
   selector: 'app-lista-register',
@@ -44,8 +44,8 @@ export class ListaRegisterPage implements OnInit {
     this.form = this.formbuilder.group({
       id: [''],
       descricao: ['', [Validators.required, Validators.minLength(1)]],
-      produtos: [[]],
-      mercado: [[], Validators.required],
+      produtos: [[], Validators.required],  
+      mercados: [[], Validators.required],
       categoria: [Tipo.CB, Validators.required]
     })
 
@@ -53,9 +53,9 @@ export class ListaRegisterPage implements OnInit {
 
     if (id) {
       this.findById(id);
-      //this.listaApiService.findAllProdutos(id).subscribe((produto)=>{this.produtos = produto});
-
     }
+
+    this.listaApiService.armazenaTotalListas();
   }
 
   findById(id: number) {
@@ -88,12 +88,19 @@ export class ListaRegisterPage implements OnInit {
 
 
   salvar() {
-    const { descricao } = this.form.value;
-  
+   
+    const { value } = this.form;
+
+    const { id, descricao } = value;
+
+    if (!id){
+      delete value.id;
+    }
+
     this.loading = true;
   
     this.listaApiService
-      .save(this.form.value)
+      .save(value)
       .pipe(
         finalize(() => {
           this.loading = false;
@@ -104,8 +111,11 @@ export class ListaRegisterPage implements OnInit {
           this.messageService.success(`Lista ${descricao} salva com sucesso!`);
           this.router.navigate(['lista-list']);
         },
-        () => {
-          this.messageService.error(`Erro ao salvar a Lista ${descricao}`, () =>{
+        (ex) => {
+          var mensagem = ex.error.Erro;
+          console.log(ex);
+          console.log(mensagem);
+          this.messageService.error(`Erro: ${mensagem}`, () =>{
           this.loading  =true;
           this.salvar();
           }  

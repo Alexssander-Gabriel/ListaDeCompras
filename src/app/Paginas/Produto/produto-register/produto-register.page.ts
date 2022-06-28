@@ -3,8 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria, Unidade } from 'src/app/model/enums';
 import { ProdutoApiServiceService } from 'src/app/ServicesAPI/Produto/produto-api-service.service';
-import { MessageService } from 'src/app/services/Mensagem/message.service';
 import { finalize } from 'rxjs/operators';
+import { Produto } from 'src/app/model/produto.model';
+import { MessageService } from 'src/app/services/Mensagem/message.service';
 
 @Component({
   selector: 'app-produto-register',
@@ -15,7 +16,9 @@ export class ProdutoRegisterPage  implements  OnInit
   {
   form : FormGroup;
   loading : boolean;
-  urlFoto : string;
+  urlFotoA : string;
+  produtos : Produto[];
+  lblAcao : string;
 
 
   constructor(
@@ -27,21 +30,28 @@ export class ProdutoRegisterPage  implements  OnInit
   ) {}
 
   ngOnInit() {
+    this.produtoApiService.getProdutos().subscribe((produtos)=>(this.produtos = produtos));
+
     this.form = this.formBuilder.group({
       id: [''],
       descricao: ['', [Validators.required, Validators.minLength(1)]],
       categoria: [Categoria.A, Validators.required],
-      preco: ['', Validators.required],
       unidade: [Unidade.UN, Validators.required],
-      foto: ['', Validators.required],
+      preco: ['', Validators.required],
+      urlFoto: ['', [Validators.required, Validators.minLength(1)]],
+      ativo: ['']
     });
 
     const id = +this.activatedRoute.snapshot.params.id;
+    console.log(id);
 
     if (id) {
       this.findById(id);
+      this.lblAcao = 'Atualizar';
+    } else {
+      this.lblAcao = 'Adicionar';
     }
-
+  
   }
 
 
@@ -60,7 +70,7 @@ export class ProdutoRegisterPage  implements  OnInit
             this.form.patchValue({
               ...produto,
             });
-            this.urlFoto = produto.foto;
+            this.urlFotoA = produto.urlFoto;
           }
         },
         () =>
@@ -73,12 +83,19 @@ export class ProdutoRegisterPage  implements  OnInit
 
 
 salvar() {
-  const { descricao } = this.form.value;
 
+  const { value } = this.form;
+  const { id, descricao } = value;
+  
+  if (!id){
+    delete value.id;
+  }
+
+  
   this.loading = true;
 
   this.produtoApiService
-    .save(this.form.value)
+    .save(value)
     .pipe(
       finalize(() => {
         this.loading = false;
@@ -89,8 +106,10 @@ salvar() {
         this.messageService.success(`Produto ${descricao} salvo com sucesso!`);
         this.router.navigate(['produto-list']);
       },
-      () => {
-        this.messageService.error(`Erro ao salvar o Produto ${descricao}`, () =>{
+      (ex) => {
+        const erro = ex.error.erro;
+        const mensagem = `Erro: ${erro}'`;
+        this.messageService.error(mensagem, () =>{
         this.loading = true;
         this.salvar();
         }  

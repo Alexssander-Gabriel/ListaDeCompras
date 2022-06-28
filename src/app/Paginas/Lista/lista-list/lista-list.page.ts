@@ -30,10 +30,14 @@ export class ListaListPage implements OnInit, ViewWillEnter
   ngOnInit() {
     this.listaApiService.armazenaTotalListas();
     this.totalLista = parseFloat(localStorage.getItem('totalLista'));
+    //this.totalLista = this.listaApiService.retornaTotalListas();
   }
 
   ionViewWillEnter(){
     this.listLista();
+    this.listaApiService.armazenaTotalListas();
+    //this.totalLista = this.listaApiService.retornaTotalListas();
+    this.totalLista = parseFloat(localStorage.getItem('totalLista'));
   }
 
 
@@ -41,7 +45,7 @@ export class ListaListPage implements OnInit, ViewWillEnter
     this.alertController
       .create({
         header: 'Exclusão',
-        message: `Você deseja excluir o game ${lista.descricao}?`,
+        message: `Você deseja excluir a Lista ${lista.descricao}?`,
         buttons: [
           {
             text: 'Sim',
@@ -58,8 +62,9 @@ export class ListaListPage implements OnInit, ViewWillEnter
                   this.messageService.success(`Lista ${lista.descricao} excluida com sucesso`);
                   this.listLista();
                 },
-                ()=>{
-                  this.messageService.error(`Erro ao excluir a Lista ${lista.descricao}`,()=>{
+                (ex)=>{
+                  var mensagem = ex.error.error;
+                  this.messageService.error(`${mensagem}`,()=>{
                   this.loading = false;
                     this.excluir(lista);
                   });    
@@ -93,7 +98,6 @@ export class ListaListPage implements OnInit, ViewWillEnter
           this.listas = JSON.parse(localStorage.getItem('listaListas'));  
           if (this.listas.length == 0) {
             this.messageService.error(`Erro ao carregar Itens.` ,()=>{
-              // não esta funcionando mais deveria.
               this.listLista();
             })
           } else {
