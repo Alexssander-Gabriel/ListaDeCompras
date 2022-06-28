@@ -4,7 +4,7 @@ Lista de Compras - Ionic Framework.
 Método 1 -----------------------
 
 
-  1° git clone https://github.com/Alexssander-Gabriel/market_list
+  1° git clone https://github.com/Alexssander-Gabriel/ListaDeCompras
   
   2º npm install 
   
